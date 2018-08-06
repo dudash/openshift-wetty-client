@@ -1,6 +1,6 @@
-FROM: registry.access.redhat.com/openshift3/ose-cli
-
-MAINTAINER Jason Dudash <jdudash@redhat.com>
+# FROM registry.access.redhat.com/openshift3/ose-cli
+FROM openshift/jenkins-slave-base-centos7
+LABEL maintainer="Jason Dudash <jdudash@redhat.com>"
 
 LABEL name="openshift3/jenkins-agent-nodejs-8-rhel7" \
       architecture="x86_64" \
@@ -15,34 +15,26 @@ ENV NODEJS_VERSION=8 \
     ENV=/usr/local/bin/scl_enable \
     PROMPT_COMMAND=". /usr/local/bin/scl_enable"
 
-COPY contrib/bin/scl_enable /usr/local/bin/scl_enable
+RUN oc version
 
-# Install NodeJS
-RUN yum-config-manager --enable rhel-server-rhscl-7-rpms && \    
-    yum-config-manager --enable rhel-7-server-optional-rpms && \
-    yum-config-manager --enable rhel-server-rhscl-8-rpms && \ 
-    yum-config-manager --enable rhel-8-server-optional-rpms && \
-    yum-config-manager --disable epel >/dev/null || : && \
-    INSTALL_PKGS="rh-nodejs${NODEJS_VERSION} rh-nodejs${NODEJS_VERSION}-nodejs-nodemon make gcc-c++" && \
-    ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
-    yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
-    yum clean all -y
+#RUN yum -y install curl
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+RUN yum -y install nodejs make gcc*
+RUN npm install npm@latest -g
 
-RUN chown -R 1001:0 $HOME && \
-    chmod -R g+rw $HOME
+#RUN chown -R 1001:0 /home/jenkins && \
+#    chmod -R g+rw /home/jenkins
 
-ADD . /app
-WORKDIR /app
-RUN npm install wetty -g
+RUN npm install wetty -g --unsafe-perm=true --allow-root
+ADD wetty.conf .
 RUN cp wetty.conf /etc/init
 
-# add default users here or in s2i...
+# add default users here or in s2i - TBD
 RUN useradd -d /home/term -m -s /bin/bash user
 RUN echo 'user:user' | chpasswd
 
 EXPOSE 8888
-
 USER 1001
-ENTRYPOINT ["wetty"]
+
+ENTRYPOINT ["npm start wetty"]
 
