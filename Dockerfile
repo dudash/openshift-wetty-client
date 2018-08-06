@@ -32,16 +32,17 @@ RUN yum-config-manager --enable rhel-server-rhscl-7-rpms && \
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
 
-USER 1001
 ADD . /app
 WORKDIR /app
-RUN npm install
-RUN apt-get update
-RUN apt-get install -y vim
-RUN useradd -d /home/term -m -s /bin/bash term
-RUN echo 'term:term' | chpasswd
+RUN npm install wetty -g
+RUN cp wetty.conf /etc/init
+
+# add default users here or in s2i...
+RUN useradd -d /home/term -m -s /bin/bash user
+RUN echo 'user:user' | chpasswd
 
 EXPOSE 8888
 
-ENTRYPOINT ["node"]
-CMD ["app.js", "-p", "8888"]
+USER 1001
+ENTRYPOINT ["wetty"]
+
