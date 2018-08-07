@@ -8,7 +8,7 @@ Need oc but don't have a terminal or the ability to install anything? Just run t
 
 ## How do I use this?
 You need to be a cluster admin or have your cluster admin relax the SCC restrictions in your cluster so that this image is allow to run as root. The command for that is:
-    `oc adm policy add-scc-to-group anyuid system:authenticate`
+    `oc adm policy add-scc-to-group anyuid system:authenticated`
 
 Now you can
 * Create a project in openshift : `oc new-project occli`
