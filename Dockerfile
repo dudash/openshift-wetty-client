@@ -33,12 +33,10 @@ RUN cp wetty.conf /etc/init
 RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd; done
 
 EXPOSE 8888
-
-RUN useradd -ms /bin/bash wetty
-
-USER wetty
+USER root
 
 # override this entrypoint or the base will try to do some weird JNLP stuff
 # currently using a slightly odd base image for this, but it has oc and curl
 # probably should switch at some point
 ENTRYPOINT ["wetty", "--port", "8888"]
+
