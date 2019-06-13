@@ -30,7 +30,7 @@ ADD wetty.conf .
 RUN cp wetty.conf /etc/init
 
 # To modify default users, update the WETTY_* environment variables above
-RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i --password ${WETTY_PASSWORD_PREFIX}$i; done
+RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd; done
 
 EXPOSE 8888
 USER root
