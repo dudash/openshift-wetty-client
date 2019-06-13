@@ -34,7 +34,7 @@ RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USE
 
 EXPOSE 8888
 
-RUN useradd -ms /bin/bash wetty
+RUN useradd -d /home/wetty -ms /bin/bash wetty && echo "wetty:wetty" | chpasswd
 
 USER wetty
 
