@@ -1,12 +1,12 @@
 # bases are in registry.redhat.io
-FROM registry.redhat.io/ubi7/ubi
+FROM quay.io/jasonredhat/ubi7
 USER root
 LABEL maintainer="Jason Dudash <jdudash@redhat.com>"
-LABEL name="openshift4/ubi-wetty-tools" \
+LABEL name="openshift-wetty-client" \
       architecture="x86_64" \
-      io.k8s.display-name="oc tools via wetty" \
-      io.k8s.description="Provides oc cli tooling via wetty" \
-      io.openshift.tags="openshift,wetty,oc,nodejs"
+      io.k8s.display-name="oc tools via wetty running on RHEL7 UBI" \
+      io.k8s.description="Provides oc cli tooling in a web browser" \
+      io.openshift.tags="openshift,wetty,oc,ubi7"
 
 ENV NODEJS_VERSION=8 \
     NODE_ENV=production \
