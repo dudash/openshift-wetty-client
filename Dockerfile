@@ -1,6 +1,6 @@
 # bases are in registry.redhat.io
 FROM quay.io/jasonredhat/ubi7
-FROM openshift/jenkins-slave-base-centos7
+#FROM openshift/jenkins-slave-base-centos7
 USER root
 LABEL maintainer="Jason Dudash <jdudash@redhat.com>"
 LABEL name="openshift-wetty-client" \
