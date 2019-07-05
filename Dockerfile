@@ -17,8 +17,10 @@ ENV NODEJS_VERSION=8 \
     WETTY_USERNAME_PREFIX=user \
     WETTY_PASSWORD_PREFIX=password
 
-RUN curl https://artifacts-openshift-release-3-11.svc.ci.openshift.org/zips/openshift-origin-client-tools-v3.11.0-3a34b96-217-linux-64bit.tar.gz | tar xvz
-RUN cp openshift-origin-client-tools-v3.11.0-3a34b96-217-linux-64bit/oc /usr/local/bin
+RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v3/clients/3.11.104/linux/oc.tar.gz && \
+    tar -xzvf /tmp/oc.tar.gz -C /tmp/ && \
+    mv /tmp/oc /usr/local/bin/ && \
+    rm -rf /tmp/oc.tar.gz
 RUN oc version
 
 RUN yum -y install ssh sshpass
