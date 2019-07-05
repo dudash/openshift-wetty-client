@@ -1,6 +1,6 @@
 # bases are in registry.redhat.io
-FROM quay.io/jasonredhat/ubi7
-#FROM openshift/jenkins-slave-base-centos7
+#FROM quay.io/jasonredhat/ubi7
+FROM openshift/jenkins-slave-base-centos7
 USER root
 LABEL maintainer="Jason Dudash <jdudash@redhat.com>"
 LABEL name="openshift-wetty-client" \
@@ -23,7 +23,11 @@ RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v3/clien
     rm -rf /tmp/oc.tar.gz
 RUN oc version
 
-RUN yum -y install ssh sshpass
+RUN yum -y install openssh-server sshpass
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
+#ADD sshd_config /etc/ssh/sshd_config 
+RUN systemctl enable sshd.service
 
 RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 RUN yum -y install nodejs make gcc*
@@ -37,7 +41,6 @@ ADD wetty.conf .
 #RUN cp wetty.conf /etc/init
 
 EXPOSE 8888
-EXPOSE 22
-USER 1001
+USER root
 ENTRYPOINT ["wetty", "--port", "8888"]
 
