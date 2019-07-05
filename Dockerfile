@@ -41,6 +41,6 @@ ADD wetty.conf .
 #RUN cp wetty.conf /etc/init
 
 EXPOSE 8888
-USER root
+USER 1001
 ENTRYPOINT ["wetty", "--port", "8888"]
 
