@@ -1,0 +1,2 @@
+oc login postal.redhatgov.io -u aromerot -p password
+oc login $OPENSHIFT_CLUSTER -u $(whoami) -p password$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)
