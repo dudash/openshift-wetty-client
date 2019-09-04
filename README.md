@@ -17,13 +17,15 @@ Now you can
 
 Navigate to the exposed route and login as one of the available users. There are 60 users created in the Dockerfile with usernames: user1-user60 and password: password1-password60, respectively.
 
-Now in that wetty terminal login to your OpenShift cluster of choice using the oc command:
+Now in that wetty terminal login to your OpenShift cluster of choice by typing the cluster URL when prompted:
 ```sh
-oc login https://mycluster.awesomeland.com
+Server [https://localhost:8443]: mycluster.awesomeland.com
 ```
 
 and run whatever commands you want:
->`oc get pods --all-namespaces`
+```sh
+oc get pods --all-namespaces
+```
 
 ## WARNING
  - THIS CONTAINER CURRENTLY REQUIRES BEING RUN AS ROOT
