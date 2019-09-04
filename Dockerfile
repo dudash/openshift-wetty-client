@@ -35,7 +35,7 @@ RUN npm install npm@latest -g
 
 # To modify default users, update the WETTY_* environment variables above
 # and automate the OpenShift cluster oc login
-RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login $OPENSHIFT_CLUSTER -u $(whoami) -p password$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)" >> ~/.bashrc; done
+RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login $OPENSHIFT_CLUSTER -u $(whoami) -p password$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)" >> /home/${WETTY_USERNAME_PREFIX}$i/.bashrc; done
 
 RUN npm i -g wetty.js --unsafe-perm=true --allow-root
 ADD wetty.conf .
