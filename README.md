@@ -19,11 +19,15 @@ Navigate to the exposed route and login as one of the available users. There are
 
 **(Note: currently using the `latest` tag you need to postfix `/wetty` on your route)**
 
-Now in that wetty terminal login to your OpenShift cluster of choice using the oc command:
->`oc login https://mycluster.awesomeland.com`
+Now in that wetty terminal login to your OpenShift cluster of choice by typing the cluster URL when prompted:
+```sh
+Server [https://localhost:8443]: mycluster.awesomeland.com
+```
 
 and run whatever commands you want:
->`oc get pods --all-namespaces`
+```sh
+oc get pods --all-namespaces
+```
 
 ## WARNING
  - THIS CONTAINER CURRENTLY REQUIRES BEING RUN AS ROOT

@@ -34,7 +34,8 @@ RUN yum -y install nodejs make gcc*
 RUN npm install npm@latest -g
 
 # To modify default users, update the WETTY_* environment variables above
-RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd; done
+# and automate the OpenShift cluster oc login
+RUN for ((i=1; i<=$WETTY_NUMBER_OF_USERS; i++)); do useradd -d /home/${WETTY_USERNAME_PREFIX}$i -m -s /bin/bash ${WETTY_USERNAME_PREFIX}$i && echo "${WETTY_USERNAME_PREFIX}$i:${WETTY_PASSWORD_PREFIX}$i" | chpasswd && echo "oc login -u \$(whoami) -p password\$(whoami | egrep -o '[[:digit:]]{1,}' | head -n1)" >> /home/${WETTY_USERNAME_PREFIX}$i/.bashrc; done
 
 RUN npm i -g wetty.js --unsafe-perm=true --allow-root
 ADD wetty.conf .
@@ -42,5 +43,5 @@ ADD wetty.conf .
 
 EXPOSE 8888
 USER root
-ENTRYPOINT ["wetty", "--port", "8888"]
+ENTRYPOINT ["wetty", "--port", "8888", "--base", "/"]
 
