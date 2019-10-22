@@ -20,8 +20,6 @@ oc create route edge --service=openshift-wetty-client --port=8888 --path /wetty
 
 Navigate to the exposed route and login as one of the available users. There are 60 users created in the Dockerfile with usernames: user1-user60 and password: password1-password60, respectively.
 
-**(Note: currently using the `latest` tag you need to postfix `/wetty` on your route)**
-
 Now in that wetty terminal login to your OpenShift cluster of choice by typing the cluster URL when prompted:
 ```sh
 Server [https://localhost:8443]: mycluster.awesomeland.com
