@@ -14,7 +14,9 @@ Now you can
 * Create a project in openshift : `oc new-project occli`
 * Deploy the prebuilt image : `oc new-app quay.io/jasonredhat/openshift-wetty-client`
 * Expose a route on port 8888 : 
-`oc create route edge --service=openshift-wetty-client --port=8888 --path /wetty` 
+```sh
+oc create route edge --service=openshift-wetty-client --port=8888 --path /wetty
+```
 
 Navigate to the exposed route and login as one of the available users. There are 60 users created in the Dockerfile with usernames: user1-user60 and password: password1-password60, respectively.
 
