@@ -15,7 +15,7 @@ Now you can
 * Deploy the prebuilt image : `oc new-app quay.io/jasonredhat/openshift-wetty-client`
 * Expose a route on port 8888 : 
 ```sh
-oc create route edge --service=openshift-wetty-client --port=8888 --path /wetty
+oc create route edge --service=openshift-wetty-client --port=8888
 ```
 
 Navigate to the exposed route and login as one of the available users. There are 60 users created in the Dockerfile with usernames: user1-user60 and password: password1-password60, respectively.
@@ -24,6 +24,8 @@ Now in that wetty terminal login to your OpenShift cluster of choice by typing t
 ```sh
 Server [https://localhost:8443]: mycluster.awesomeland.com
 ```
+
+**(Note: If the username and password of the wetty user match the openshift user the previous prompt may not appear)**
 
 and run whatever commands you want:
 ```sh
