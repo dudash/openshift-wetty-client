@@ -11,6 +11,7 @@ LABEL name="openshift-wetty-client" \
 
 ARG OC_MAJOR_VERSION
 ARG OC_VERSION
+ARG ODO_VERSION
 
 ENV NODEJS_VERSION=10 \
     NODE_ENV=production \
@@ -20,7 +21,8 @@ ENV NODEJS_VERSION=10 \
     WETTY_USERNAME_PREFIX=user \
     WETTY_PASSWORD_PREFIX=password \
     OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-3} \
-    OC_VERSION=${OC_VERSION:-3.11.157}
+    OC_VERSION=${OC_VERSION:-3.11.157} \
+    ODO_VERSION=${ODO_VERSION:-1.0.0
 
 # Not sure why I have to do this but without it
 # npm is not found....
@@ -33,6 +35,8 @@ RUN if [ $OC_MAJOR_VERSION == 3 ]; then curl -sLo /tmp/oc.tar.gz $OCP3LINK; else
     mv /tmp/oc /usr/local/bin/ && \
     rm -rf /tmp/oc.tar.gz && \
     oc version
+
+RUN if [ $OC_MAJOR_VERSION == 4 ]; then curl -sLo /usr/local/bin/odo  https://mirror.openshift.com/pub/openshift-v4/clients/odo/v${ODO_VERSION}/odo-linux-amd64; chmod 755 /usr/local/bin/odo; fi
 
 RUN yum --setopt tsflags=nodocs -y install openssh-server sshpass && \
     rm -rf /var/cache/yum && \
