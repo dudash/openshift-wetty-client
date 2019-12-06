@@ -22,7 +22,7 @@ ENV NODEJS_VERSION=10 \
     WETTY_PASSWORD_PREFIX=password \
     OC_MAJOR_VERSION=${OC_MAJOR_VERSION:-3} \
     OC_VERSION=${OC_VERSION:-3.11.157} \
-    ODO_VERSION=${ODO_VERSION:-1.0.0
+    ODO_VERSION=${ODO_VERSION:-1.0.0}
 
 # Not sure why I have to do this but without it
 # npm is not found....
