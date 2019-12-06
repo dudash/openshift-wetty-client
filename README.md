@@ -37,6 +37,3 @@ oc get pods --all-namespaces
 
 That is root inside the container not of the platform. But it adds an extra layer of security risk. So bewarned...
 
-## TODOs
-* Fix this image so that it can run as any random numerical UID and not as root
-* Create the users list from a config files (name/password)
