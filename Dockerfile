@@ -39,7 +39,8 @@ RUN if [ $OC_MAJOR_VERSION == 3 ]; then curl -sLo /tmp/oc.tar.gz $OCP3LINK; else
 RUN if [ $OC_MAJOR_VERSION == 4 ]; then curl -sLo /usr/local/bin/odo  https://mirror.openshift.com/pub/openshift-v4/clients/odo/v${ODO_VERSION}/odo-linux-amd64; chmod 755 /usr/local/bin/odo; fi
 
 # Enable EPEL repositories
-RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; \
+    rpm -Uvh epel-release*rpm
         
 RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install openssh-server sshpass && \
     rm -rf /var/cache/yum && \
