@@ -42,7 +42,7 @@ RUN if [ $OC_MAJOR_VERSION == 4 ]; then curl -sLo /usr/local/bin/odo  https://mi
 RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; \
     rpm -Uvh epel-release*rpm
         
-RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install sshpass && \
+RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install openssh-server sshpass && \
     rm -rf /var/cache/yum
 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
