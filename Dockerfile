@@ -43,10 +43,12 @@ RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; 
     rpm -Uvh epel-release*rpm
         
 RUN yum --setopt tsflags=nodocs --disableplugin=subscription-manager -y install sshpass && \
-    rm -rf /var/cache/yum && \
-    ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
-    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N '' && \
-    systemctl enable sshd.service
+    rm -rf /var/cache/yum
+
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && \
+    ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
+    
+RUN systemctl enable sshd.service
 
 # To modify default users, update the WETTY_* environment variables above
 # and automate the OpenShift cluster oc login
