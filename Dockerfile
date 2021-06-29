@@ -1,6 +1,6 @@
 # bases are in registry.redhat.io
-#FROM quay.io/jasonredhat/ubi7
-FROM registry.access.redhat.com/ubi7/nodejs-10
+#FROM registry.access.redhat.com/ubi7/nodejs-10
+FROM registry.access.redhat.com/ubi8/ubi:8.4
 USER root
 LABEL maintainer="Jason Dudash <jdudash@redhat.com>"
 LABEL name="openshift-wetty-client" \
